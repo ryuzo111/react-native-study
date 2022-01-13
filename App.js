@@ -24,6 +24,8 @@ export default class App extends Component {
         </Text>
         <TextInput style={styles.input} placeholder="write here..." value={this.state.text} onChangeText={this.doType}/>
         <Button title='Click' onPress={this.doAction}></Button>
+        <Welcome></Welcome>
+        <Welcome></Welcome>
 
       </View>
     );
@@ -35,6 +37,15 @@ export default class App extends Component {
 
   doAction = () => {
     this.setState({text:'', message:'Hello, ' + this.state.text + '!',});
+  }
+}
+
+class Welcome extends Component {
+  render() {
+    return (
+      <Text style={styles.message}>こんにちは!</Text>
+
+    );
   }
 }
 
