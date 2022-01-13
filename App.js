@@ -116,10 +116,14 @@ import { Text, View} from 'react-native';
 
 export default class App extends Component {
   render() {
+    let message = 'Hello World';
     return (
       <View>
         <Text style={{padding:50, textAlign: 'center', paddingTop:400}}>
-          Hello World!!
+          {message}
+        </Text>
+        <Text>
+          {message}
         </Text>
       </View>
     );
