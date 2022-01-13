@@ -1,13 +1,15 @@
 import React,{Component} from 'react';
-import { StyleSheet, Text, View} from 'react-native';
+import { Button, Alert, StyleSheet, Text, View} from 'react-native';
 
 
 export default class App extends Component {
+
+  counter = 0;
   
   constructor(props) {
     super(props);
+    this.state = {message :'click me....'};
     this.title = 'Welcome!';
-    this.message = 'this is sample message!';
   }
 
   render() {
@@ -18,14 +20,15 @@ export default class App extends Component {
           {this.title}
         </Text>
         <Text style={styles.subtitle}>
-          {this.message}
+          {this.state.message}
         </Text>
-        <Text style={styles.message}>
-          This is sample message.
-          これは、サンプルメッセージです。
-        </Text>
+        <Button title='Click' onPress={this.doAction}></Button>
       </View>
     );
+  }
+
+  doAction = () => {
+    this.setState({message:'count: ' +  ++this.counter});
   }
 }
 
