@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { TextInput, Button, Alert, StyleSheet, Text, View} from 'react-native';
+import { Image,TextInput, Button, Alert, StyleSheet, Text, View} from 'react-native';
 
 
 export default class App extends Component {
@@ -24,8 +24,9 @@ export default class App extends Component {
         </Text>
         <TextInput style={styles.input} placeholder="write here..." value={this.state.text} onChangeText={this.doType}/>
         <Button title='Click' onPress={this.doAction}></Button>
-        <Welcome></Welcome>
-        <Welcome></Welcome>
+        <Welcome name="Taro"></Welcome>
+        <Welcome name="hanako"></Welcome>
+        <Image source={require('./image/kart.png')}/>
 
       </View>
     );
@@ -43,8 +44,7 @@ export default class App extends Component {
 class Welcome extends Component {
   render() {
     return (
-      <Text style={styles.message}>こんにちは!</Text>
-
+      <Text style={styles.message}>こんにちは!{this.props.name}さん</Text>
     );
   }
 }
