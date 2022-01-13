@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { Button, Alert, StyleSheet, Text, View} from 'react-native';
+import { TextInput, Button, Alert, StyleSheet, Text, View} from 'react-native';
 
 
 export default class App extends Component {
@@ -8,7 +8,7 @@ export default class App extends Component {
   
   constructor(props) {
     super(props);
-    this.state = {message :'click me....'};
+    this.state = {message :'your name:', text:''};
     this.title = 'Welcome!';
   }
 
@@ -22,13 +22,19 @@ export default class App extends Component {
         <Text style={styles.subtitle}>
           {this.state.message}
         </Text>
+        <TextInput style={styles.input} placeholder="write here..." value={this.state.text} onChangeText={this.doType}/>
         <Button title='Click' onPress={this.doAction}></Button>
+
       </View>
     );
   }
 
+  doType = (text) => {
+    this.setState({text});
+  };
+
   doAction = () => {
-    this.setState({message:'count: ' +  ++this.counter});
+    this.setState({text:'', message:'Hello, ' + this.state.text + '!',});
   }
 }
 
@@ -54,6 +60,10 @@ const styles = StyleSheet.create({
     color:'green',
     fontSize:26,
     lineHeight:50
-  }
+  },
+  input: {
+    padding:10,
+    fontSize:32,
+  },
 
 });
