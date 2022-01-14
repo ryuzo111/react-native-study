@@ -1,22 +1,16 @@
 import React,{Component} from 'react';
 import { FlatList, StatusBar, Switch, Image,TextInput, Button, Alert, StyleSheet, Text, View} from 'react-native';
+import { Header } from 'react-native-elements';
 
 export default class App extends Component {
 
   
-  // items = [
-  //   {key:'Windows'},
-  //   {key:'Windows'},
-  //   {key:'Windows'},
-  //   {key:'Windows'},
-  //   {key:'Windows'},
-  // ]
   items = [
-    'Windows',
-    'Windows',
-    'Windows',
-    'Windows',
-    'Windows',
+    {name:'Taro', age: 30, mail:'taro@yamada'},
+    {name:'Taro', age: 30, mail:'taro@yamada'},
+    {name:'Taro', age: 30, mail:'taro@yamada'},
+    {name:'Taro', age: 30, mail:'taro@yamada'},
+    {name:'Taro', age: 30, mail:'taro@yamada'},
   ]
   constructor(props) {
     super(props);
@@ -38,12 +32,28 @@ export default class App extends Component {
         <Welcome name="hanako"></Welcome>
         <Image source={require('./image/kart.png')}/>
         <FlatList data={this.items} renderItem={this.getItem}></FlatList>
+        <Text>{this.items[0].selected}</Text>
 
       </View>
     );
   }
 
-  getItem = ({item}) => <Text style={styles.item}>{item}</Text>
+  getItem = ({item}) => {
+    return (
+    <View style={styles.item}>
+      <Text style={styles.itemTitle} onPress={()=>this.doAction(item)} >{item.name} ({item.age})</Text>
+      <Text>{item.mail}</Text>
+    </View>
+    );
+  }
+
+  doAction = (item) => {
+    this.setState({
+      selected: item.id *1,
+      message: 'select: ' + item.name.toString() + '(' + item.age.toString() + ')',
+    });
+
+  }
 
 
 }
