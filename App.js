@@ -1,44 +1,51 @@
 import React,{Component} from 'react';
-import { Image,TextInput, Button, Alert, StyleSheet, Text, View} from 'react-native';
-
+import { FlatList, StatusBar, Switch, Image,TextInput, Button, Alert, StyleSheet, Text, View} from 'react-native';
 
 export default class App extends Component {
 
-  counter = 0;
   
+  // items = [
+  //   {key:'Windows'},
+  //   {key:'Windows'},
+  //   {key:'Windows'},
+  //   {key:'Windows'},
+  //   {key:'Windows'},
+  // ]
+  items = [
+    'Windows',
+    'Windows',
+    'Windows',
+    'Windows',
+    'Windows',
+  ]
   constructor(props) {
     super(props);
-    this.state = {message :'your name:', text:''};
-    this.title = 'Welcome!';
+    StatusBar.setBarStyle('dark-content', true);
+    StatusBar.setBackgroundColor('#008080', true);
+    this.state = {
+      message :'your name:',
+      text:'',
+    };
+
   }
 
   render() {
-    let message = 'Hello World';
     return (
       <View style={styles.base}>
-        <Text style={styles.title}>
-          {this.title}
-        </Text>
         <Text style={styles.subtitle}>
           {this.state.message}
         </Text>
-        <TextInput style={styles.input} placeholder="write here..." value={this.state.text} onChangeText={this.doType}/>
-        <Button title='Click' onPress={this.doAction}></Button>
-        <Welcome name="Taro"></Welcome>
         <Welcome name="hanako"></Welcome>
         <Image source={require('./image/kart.png')}/>
+        <FlatList data={this.items} renderItem={this.getItem}></FlatList>
 
       </View>
     );
   }
 
-  doType = (text) => {
-    this.setState({text});
-  };
+  getItem = ({item}) => <Text style={styles.item}>{item}</Text>
 
-  doAction = () => {
-    this.setState({text:'', message:'Hello, ' + this.state.text + '!',});
-  }
+
 }
 
 class Welcome extends Component {
@@ -75,6 +82,10 @@ const styles = StyleSheet.create({
   input: {
     padding:10,
     fontSize:32,
+  },
+  item: {
+    margin:5,
+    fontSize:24,
   },
 
 });
