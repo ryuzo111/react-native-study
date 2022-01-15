@@ -2,21 +2,14 @@ import React,{Component} from 'react';
 import { SectionList, FlatList, StatusBar, Switch, Image,TextInput, Button, Alert, StyleSheet, Text, View} from 'react-native';
 import { Header } from 'react-native-elements';
 import { CheckBox } from 'react-native-elements/dist/checkbox/CheckBox';
-import { ButtonGroup } from 'react-native-elements';
+import { Rating } from 'react-native-elements';
 
 export default class App extends Component {
 
-  buttons = [
-    {title:'One', element: ()=> <Text style={styles.item}>One</Text>},
-    {title:'Two', element: ()=> <Text style={styles.item}>Two</Text>},
-    {title:'Three', element: ()=> <Text style={styles.item}>Three</Text>},
-  ]
-  
   constructor(props) {
     super(props);
     this.state = {
       message :'your name:',
-      selectedIndex:0,
     };
 
   }
@@ -24,24 +17,24 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.base}>
+        <Text style={styles.title}>UI</Text>
         <Text style={styles.subtitle}>
           {this.state.message}
         </Text>
         <Welcome name="hanako"></Welcome>
         <Image source={require('./image/kart.png')}/>
-        <ButtonGroup onPress={this.doAction} selectedIndex={this.state.selectedIndex}
-        buttons={this.buttons} containerStyle={{height:75}}>
+        <Rating 
+        showRating
+        type='star' ratingCount={5} imageSize={50} onFinishRating={this.doAction}>
 
-        </ButtonGroup>
-
+        </Rating>
       </View>
     );
   }
 
-  doAction = (selectedIndex) => {
+  doAction = (rating) => {
     this.setState({
-        message: 'Selected: [' + selectedIndex + ']' + this.buttons[selectedIndex].title,
-        selectedIndex: selectedIndex,
+        message: 'rate: [' + rating + ']' 
       });
   }
 }
