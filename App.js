@@ -2,20 +2,21 @@ import React,{Component} from 'react';
 import { SectionList, FlatList, StatusBar, Switch, Image,TextInput, Button, Alert, StyleSheet, Text, View} from 'react-native';
 import { Header } from 'react-native-elements';
 import { CheckBox } from 'react-native-elements/dist/checkbox/CheckBox';
-// import {CheckBox} from 'react-native-elements';
+import { ButtonGroup } from 'react-native-elements';
 
 export default class App extends Component {
 
+  buttons = [
+    {title:'One', element: ()=> <Text style={styles.item}>One</Text>},
+    {title:'Two', element: ()=> <Text style={styles.item}>Two</Text>},
+    {title:'Three', element: ()=> <Text style={styles.item}>Three</Text>},
+  ]
   
-  sections = [
-    {title:'Computer', data:['Windows', 'macOS', 'ChromeOS']},
-    {title:'Mobile', data:['Android', 'iOS']},
-  ];
   constructor(props) {
     super(props);
     this.state = {
       message :'your name:',
-      checkd: true,
+      selectedIndex:0,
     };
 
   }
@@ -28,16 +29,19 @@ export default class App extends Component {
         </Text>
         <Welcome name="hanako"></Welcome>
         <Image source={require('./image/kart.png')}/>
-        <CheckBox title='Check' onPress={this.doAction} checkd={this.state.checkd}></CheckBox>
+        <ButtonGroup onPress={this.doAction} selectedIndex={this.state.selectedIndex}
+        buttons={this.buttons} containerStyle={{height:75}}>
+
+        </ButtonGroup>
 
       </View>
     );
   }
 
-  doAction = () => {
+  doAction = (selectedIndex) => {
     this.setState({
-        message: 'CHeck:' + !this.state.checkd,
-        checkd: !this.state.checkd,
+        message: 'Selected: [' + selectedIndex + ']' + this.buttons[selectedIndex].title,
+        selectedIndex: selectedIndex,
       });
   }
 }
