@@ -1,8 +1,7 @@
 import React,{Component} from 'react';
 import { SectionList, FlatList, StatusBar, Switch, Image,TextInput, Button, Alert, StyleSheet, Text, View} from 'react-native';
-import { Header } from 'react-native-elements';
-import { CheckBox } from 'react-native-elements/dist/checkbox/CheckBox';
-import { Rating } from 'react-native-elements';
+// import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
+import { Input } from 'react-native-elements';
 
 export default class App extends Component {
 
@@ -10,6 +9,8 @@ export default class App extends Component {
     super(props);
     this.state = {
       message :'your name:',
+      name:'',
+      mail:'',
     };
 
   }
@@ -23,18 +24,21 @@ export default class App extends Component {
         </Text>
         <Welcome name="hanako"></Welcome>
         <Image source={require('./image/kart.png')}/>
-        <Rating 
-        showRating
-        type='star' ratingCount={5} imageSize={50} onFinishRating={this.doAction}>
-
-        </Rating>
+        <Input label="Name" onChangeText={this.onChangeInput}/>
+        <Button title='send' onPress={this.doAction}></Button>
       </View>
     );
   }
 
-  doAction = (rating) => {
+  onChangeInput = (name) => {
     this.setState({
-        message: 'rate: [' + rating + ']' 
+      name
+    });
+  }
+
+  doAction = () => {
+    this.setState({
+        message: 'name: [' + this.state.name + ']' 
       });
   }
 }
