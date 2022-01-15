@@ -1,24 +1,21 @@
 import React,{Component} from 'react';
-import { FlatList, StatusBar, Switch, Image,TextInput, Button, Alert, StyleSheet, Text, View} from 'react-native';
+import { SectionList, FlatList, StatusBar, Switch, Image,TextInput, Button, Alert, StyleSheet, Text, View} from 'react-native';
 import { Header } from 'react-native-elements';
+import { CheckBox } from 'react-native-elements/dist/checkbox/CheckBox';
+// import {CheckBox} from 'react-native-elements';
 
 export default class App extends Component {
 
   
-  items = [
-    {name:'Taro', age: 30, mail:'taro@yamada'},
-    {name:'Taro', age: 30, mail:'taro@yamada'},
-    {name:'Taro', age: 30, mail:'taro@yamada'},
-    {name:'Taro', age: 30, mail:'taro@yamada'},
-    {name:'Taro', age: 30, mail:'taro@yamada'},
-  ]
+  sections = [
+    {title:'Computer', data:['Windows', 'macOS', 'ChromeOS']},
+    {title:'Mobile', data:['Android', 'iOS']},
+  ];
   constructor(props) {
     super(props);
-    StatusBar.setBarStyle('dark-content', true);
-    StatusBar.setBackgroundColor('#008080', true);
     this.state = {
       message :'your name:',
-      text:'',
+      checkd: true,
     };
 
   }
@@ -31,32 +28,20 @@ export default class App extends Component {
         </Text>
         <Welcome name="hanako"></Welcome>
         <Image source={require('./image/kart.png')}/>
-        <FlatList data={this.items} renderItem={this.getItem}></FlatList>
-        <Text>{this.items[0].selected}</Text>
+        <CheckBox title='Check' onPress={this.doAction} checkd={this.state.checkd}></CheckBox>
 
       </View>
     );
   }
 
-  getItem = ({item}) => {
-    return (
-    <View style={styles.item}>
-      <Text style={styles.itemTitle} onPress={()=>this.doAction(item)} >{item.name} ({item.age})</Text>
-      <Text>{item.mail}</Text>
-    </View>
-    );
-  }
-
-  doAction = (item) => {
+  doAction = () => {
     this.setState({
-      selected: item.id *1,
-      message: 'select: ' + item.name.toString() + '(' + item.age.toString() + ')',
-    });
-
+        message: 'CHeck:' + !this.state.checkd,
+        checkd: !this.state.checkd,
+      });
   }
-
-
 }
+
 
 class Welcome extends Component {
   render() {
