@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
 import { SectionList, FlatList, StatusBar, Switch, Image,TextInput, Button, Alert, StyleSheet, Text, View} from 'react-native';
-// import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-import { Input } from 'react-native-elements';
+import { Input, Icon } from 'react-native-elements';
 
 export default class App extends Component {
 
@@ -25,6 +24,14 @@ export default class App extends Component {
         <Welcome name="hanako"></Welcome>
         <Image source={require('./image/kart.png')}/>
         <Input label="Name" onChangeText={this.onChangeInput}/>
+        <Icon 
+        raised
+        size={50}
+        type='material'
+        name='android'
+        color='#0000ff'></Icon>
+          <Icon
+          name='rowing' />
         <Button title='send' onPress={this.doAction}></Button>
       </View>
     );
