@@ -1,8 +1,11 @@
 import React,{Component} from 'react';
-import { SectionList, FlatList, StatusBar, Switch, Image,TextInput, Button, Alert, StyleSheet, Text, View} from 'react-native';
-import { Input, Icon } from 'react-native-elements';
+import { SafeAreaView,ScrollView, StatusBar, FlatList, Switch, Image,TextInput, Button, Alert, StyleSheet, Text, View, } from 'react-native';
+import { Tile,Header, Icon } from 'react-native-elements';
+import { WebView } from 'react-native-webview';
 
 export default class App extends Component {
+
+  items= ['one', 'tow','one', 'tow','one', 'tow','one', 'tow','one', 'tow','one', 'tow','one', 'tow','one', 'tow',];
 
   constructor(props) {
     super(props);
@@ -10,31 +13,46 @@ export default class App extends Component {
       message :'your name:',
       name:'',
       mail:'',
+      hello:'',
     };
 
   }
 
+  componentDidMount() { //render直後に行いたい処理を書くところ
+    fetch("https://procir-study.site/yajima427/insurance_sns/matching_insurance/public/api/hello") //api
+      .then(res => res.json()) 
+      .then(json => {
+        console.log(json);
+        this.setState({
+          hello: json
+        });
+      });
+  }
+
   render() {
+    // var { hello } = this.state;
+console.log(this.state.hello);
     return (
       <View style={styles.base}>
-        <Text style={styles.title}>UI</Text>
-        <Text style={styles.subtitle}>
-          {this.state.message}
-        </Text>
-        <Welcome name="hanako"></Welcome>
-        <Image source={require('./image/kart.png')}/>
-        <Input label="Name" onChangeText={this.onChangeInput}/>
-        <Icon 
-        raised
-        size={50}
-        type='material'
-        name='android'
-        color='#0000ff'></Icon>
-          <Icon
-          name='rowing' />
-        <Button title='send' onPress={this.doAction}></Button>
+        <StatusBar barStyle='dark-content' hidden={true}></StatusBar>
+         <Text style={styles.title}>UI</Text>
+        {/* <SafeAreaView style={{flex: 1}}> */}
+        {/* <WebView source={{uri: "https://www.hoken-talk.net/"}} /> */}
+        <Text style={styles.title}> fafa{this.state.hello}</Text>
+        {/* </SafeAreaView> */}
+         <ScrollView >
+          {this.items.map((item,i)=>this.getView(item,i))}
+        </ScrollView>
       </View>
     );
+  }
+  getView = (item, i) => (
+      <View style={styles.view}>
+        <Text style={{fontSize:36}}>{i}: {item}</Text>
+      </View>
+    )
+  doActionLeft = ()=> {
+
   }
 
   onChangeInput = (name) => {
@@ -43,11 +61,11 @@ export default class App extends Component {
     });
   }
 
-  doAction = () => {
-    this.setState({
-        message: 'name: [' + this.state.name + ']' 
-      });
-  }
+  // doAction = () => {
+  //   this.setState({
+  //       message: 'name: [' + this.state.name + ']' 
+  //     });
+  // }
 }
 
 
@@ -61,7 +79,8 @@ class Welcome extends Component {
 
 const styles = StyleSheet.create({ 
   base: {
-    padding:30
+    // padding:30,
+    flex:1,
   },
   title: {
     padding: 10,
